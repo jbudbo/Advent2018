@@ -11,6 +11,8 @@ let main argv =
 
     printfn "Day 2 Part 1 solution %i" (Day2.part1 "day2")
 
+    printfn "Day 2 Part 2 solution %s" ((Day2.part2 "day2").ToString())
+
     Console.Read() |> ignore
 
     0 // return an integer exit code
