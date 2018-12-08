@@ -1,23 +1,16 @@
 ﻿module Day1
 
-let private makePath file = sprintf "D:\AoC\Advent2018\%s.txt" file
+let part1 (lines: int[]) = lines |> Array.sum
 
-let private dataLines file =
-    System.IO.File.ReadAllLines (makePath file)
-    |> Array.map int
-    |> Array.toList
+//let part2 filename =
+//    let cache = (dataLines filename)
 
-let part1 fileName = dataLines fileName |> List.sum
+//    let rec trans lst agg frequencies =
+//        match lst with
+//        | [] -> trans cache agg frequencies
+//        | h::t ->
+//            if List.contains agg frequencies then agg
+//            else
+//                trans t (agg + h) (agg::frequencies)
 
-let part2 filename =
-    let cache = (dataLines filename)
-
-    let rec trans lst agg frequencies =
-        match lst with
-        | [] -> trans cache agg frequencies
-        | h::t ->
-            if List.contains agg frequencies then agg
-            else
-                trans t (agg + h) (agg::frequencies)
-
-    trans cache 0 []
+//    trans cache 0 []

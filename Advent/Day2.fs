@@ -1,10 +1,5 @@
 ﻿module Day2
 
-let private makePath file = sprintf "D:\AoC\Advent2018\%s.txt" file
-
-let private dataLines file =
-    System.IO.File.ReadAllLines (makePath file)
-
 let private processString (chars:string) =
     chars.ToCharArray()
     |> Array.countBy id
@@ -21,9 +16,9 @@ let private getCandidates h t =
     |> List.map (fun box -> (h,box,(delta h box)))
     |> List.tryFind (fun (_,_,x) -> x = 1)
 
-let part1 fileName =
+let part1 (lines: string[]) =
     let x = 
-        dataLines fileName
+        lines
         |> Array.map (fun s -> processString s)
         |> Array.concat
         |> Array.countBy id
@@ -32,7 +27,7 @@ let part1 fileName =
     (fst x) * (snd x)
 
 
-let part2 fileName =
+let part2 (lines: string[]) =
     let rec compare (arr: string list) =
         match arr with
         | h::t -> 
@@ -42,7 +37,7 @@ let part2 fileName =
         | [] -> failwith "none found"
     
     let findings =
-        dataLines fileName 
+        lines
         |> Array.toList 
         |> compare
 

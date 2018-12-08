@@ -2,16 +2,32 @@
 
 open System
 
+let private makePath file = sprintf "D:\AoC\Advent2018\%s.txt" file
+
+let private dataLines file =
+    System.IO.File.ReadAllLines (makePath file)
+
 [<EntryPoint>]
 let main argv =
-    printfn "Day 1 Part 1 solution %i" (Day1.part1 "day1")
+    let day1Lines = dataLines "day1"
+
+    day1Lines
+    |> Array.map int
+    |> Day1.part1
+    |> printfn "Day Part 1 solution %i"
 
     // TODO
     //let solution = Day1.part2 "day1"
 
-    printfn "Day 2 Part 1 solution %i" (Day2.part1 "day2")
+    let day2Lines = dataLines "day2"
 
-    printfn "Day 2 Part 2 solution %s" ((Day2.part2 "day2").ToString())
+    day2Lines |> Day2.part1 |> printfn "Day 2 Part 1 solution %i"
+
+    day2Lines |> Day2.part2 |>  printfn "Day 2 Part 2 solution %s"
+
+    let day3Lines = dataLines "day3"
+
+    Day3.Part1 day3Lines |> ignore
 
     Console.Read() |> ignore
 
