@@ -6,15 +6,10 @@ let private (|Valid|_|) line =
     let m = Regex.Match (line, "#(\d+).@.(\d{1,4}),(\d{1,4}):.(\d{1,4})x(\d{1,4})")
     if m.Success then Some(List.tail [for g in m.Groups -> g.Value])
     else None
-
-//let map2 mapping (array1: Array2D) (array2: Array2D) =
-//    let res = Array2D.zeroCreate (Array2D.length1 array1) (Array2D.length2 array1)
-//    for x = 
-
-
+    
 let private board = Array2D.create 1000 1000 0
 
-let Part1 (lines:string[]) =
+let Process(lines:string[]) =
     let plot line =
         match line with
         | Valid [_; x; y; w; h] -> Array2D.createBased (int x) (int y) (int w) (int h) 1
@@ -42,11 +37,21 @@ let Part1 (lines:string[]) =
 
     for plot in plots do
         combine plot (Array2D.base1 plot) (Array2D.base2 plot) board (Array2D.base1 plot) (Array2D.base2 plot) (Array2D.length1 plot) (Array2D.length2 plot)
-    
+   
+let part1 (lines:string[]) =
     let mutable footage = 0
+
+    Process lines
 
     for x = 0 to 999 do
         for y = 0 to 999 do
             if board.[x,y] >= 2 then footage <- footage + 1
 
     footage
+
+let part2 (lines:string[]) =
+    
+    for x = 0 to 999 do
+        printfn "%s" (board.[x, 0..999] |> Array.map string |> String.concat null)
+
+    0
