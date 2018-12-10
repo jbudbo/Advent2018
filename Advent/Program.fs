@@ -27,7 +27,8 @@ let main argv =
 
     let day3Lines = dataLines "day3"
 
-    Day3.Part1 day3Lines |> ignore
+    day3Lines |> Day3.Part1 |> printfn "Day 3 Part 1 solution %i"
+
 
     Console.Read() |> ignore
 
