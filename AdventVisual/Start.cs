@@ -46,9 +46,13 @@ namespace AdventVisual
 
             foreach (var line in lines)
             {
-                var captures = Regex.Match(line, "#(\\d+).@.(\\d{1,4}),(\\d{1,4}):.(\\d{1,4})x(\\d{1,4})").Groups;
+                var captures = Regex.Match(line, "#(\\d+).@.(\\d{1,3}),(\\d{1,3}):.(\\d{1,2})x(\\d{1,2})").Groups;
 
-                var newRect = new Rect(double.Parse(captures[2].Value), double.Parse(captures[3].Value), double.Parse(captures[4].Value), double.Parse(captures[5].Value));
+                var x = double.Parse(captures[2].Value);
+                var y = double.Parse(captures[3].Value);
+                var w = double.Parse(captures[4].Value);
+                var h = double.Parse(captures[5].Value);
+
 
                 Rectangle rect = new Rectangle
                 {
@@ -56,16 +60,21 @@ namespace AdventVisual
                     Stroke = new SolidColorBrush(Colors.Black),
                     //Fill = new SolidColorBrush(Colors.White),
                     //Opacity = .1,
-                    Width = double.Parse(captures[4].Value),
-                    Height = double.Parse(captures[5].Value)
+                    Width = w,
+                    Height = h
                 };
 
-                Canvas.SetTop(rect, double.Parse(captures[2].Value));
-                Canvas.SetLeft(rect, double.Parse(captures[3].Value));
+                Canvas.SetTop(rect, y);
+                Canvas.SetLeft(rect, x);
+
+                rect.MouseDown += (s,e) =>
+                {
+                    MessageBox.Show(captures[1].Value);
+                };
 
                 c.Children.Add(rect);
-
             }
         }
+        
     }
 }
