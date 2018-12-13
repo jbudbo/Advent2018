@@ -9,27 +9,35 @@ let private dataLines file =
 
 [<EntryPoint>]
 let main argv =
-    let day1Lines = dataLines "day1"
+    //let day1Lines = dataLines "day1"
 
-    day1Lines
-    |> Array.map int
-    |> Day1.part1
-    |> printfn "Day Part 1 solution %i"
+    //day1Lines
+    //|> Array.map int
+    //|> Day1.part1
+    //|> printfn "Day Part 1 solution %i"
 
     // TODO
     //let solution = Day1.part2 "day1"
 
-    let day2Lines = dataLines "day2"
+    //let day2Lines = dataLines "day2"
 
-    day2Lines |> Day2.part1 |> printfn "Day 2 Part 1 solution %i"
+    //day2Lines |> Day2.part1 |> printfn "Day 2 Part 1 solution %i"
 
-    day2Lines |> Day2.part2 |>  printfn "Day 2 Part 2 solution %s"
+    //day2Lines |> Day2.part2 |>  printfn "Day 2 Part 2 solution %s"
 
-    let day3Lines = dataLines "day3"
+    //let day3Lines = dataLines "day3"
 
-    day3Lines |> Day3.part1 |> printfn "Day 3 Part 1 solution %i"
+    //day3Lines |> Day3.part1 |> printfn "Day 3 Part 1 solution %i"
 
-    day3Lines |> Day3.part2 |> printfn "Day 3 Part 2 solution %i"
+    //day3Lines |> Day3.part2 |> printfn "Day 3 Part 2 solution %i"
+
+    //let day4Lines = dataLines "day4"
+
+    //day4Lines |> Day4.part1 |> printfn "Day 4 Part 1 solution %i"
+
+    let day5Lines = dataLines "day5"
+    
+    day5Lines.[0] |> Day5.part1 |> printfn "Day 5 Part 1 solution %i"
 
     Console.Read() |> ignore
 

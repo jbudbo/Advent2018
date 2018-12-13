@@ -51,7 +51,7 @@ let part1 (lines:string[]) =
 
 let part2 (lines:string[]) =
     
-    for x = 0 to 999 do
-        printfn "%s" (board.[x, 0..999] |> Array.map string |> String.concat null)
+    //for x = 0 to 999 do
+        //printfn "%s" (board.[x, 0..999] |> Array.map string |> String.concat null)
 
     0
