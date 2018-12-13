@@ -35,11 +35,15 @@ let main argv =
 
     //day4Lines |> Day4.part1 |> printfn "Day 4 Part 1 solution %i"
 
-    let day5Lines = dataLines "day5"
+    //let day5Lines = dataLines "day5"
     
-    day5Lines.[0] |> Day5.part1 |> printfn "Day 5 Part 1 solution %i"
+    //day5Lines.[0] |> Day5.part1 |> printfn "Day 5 Part 1 solution %i"
 
-    day5Lines.[0] |> Day5.part2 |> printfn "Day 5 Part 2 solution %i"
+    //day5Lines.[0] |> Day5.part2 |> printfn "Day 5 Part 2 solution %i"
+
+    let day6Lines = dataLines "day6"
+
+    day6Lines |> Day6.part1 |> printfn "Day 6 Part 1 solution %i"
 
     Console.Read() |> ignore
 
