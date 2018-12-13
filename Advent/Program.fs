@@ -39,6 +39,8 @@ let main argv =
     
     day5Lines.[0] |> Day5.part1 |> printfn "Day 5 Part 1 solution %i"
 
+    day5Lines.[0] |> Day5.part2 |> printfn "Day 5 Part 2 solution %i"
+
     Console.Read() |> ignore
 
     0 // return an integer exit code

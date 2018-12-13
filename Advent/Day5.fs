@@ -1,13 +1,12 @@
 ﻿module Day5
 
-
-let part1 line =
-    let collapse (segment:char list) :char list =
+let private condense (polymer:char list) :char list =
+    let collapse (segment:char list) :char list option=
         match segment |> List.map int |> List.reduce (-) |> abs with
-        | 32 -> []
-        | _ -> segment
+        | 32 -> None
+        | _ -> Some(segment)
 
-    let react (polymer:char list) :char list = polymer |> List.chunkBySize 2 |> List.map collapse |> List.concat
+    let react (polymer:char list) :char list = polymer |> List.chunkBySize 2 |> List.choose collapse |> List.concat
 
     let reactOffset (polymer:char list) :char list =
         match polymer with
@@ -21,5 +20,21 @@ let part1 line =
         else
             playReactions result
 
-    line |> Seq.toList |> playReactions |> List.length    
+    playReactions polymer
+
+let part1 line = line |> Seq.toList |> condense |> List.length    
     
+
+let part2 line =
+    let removals = List.zip ['a'..'z'] ['A'..'Z']
+
+    let updatePolymers (polymer : char list) = seq {
+        for (p1,p2) in removals do
+            yield
+                polymer
+                //|> List.except [p1;p2] // NOTE: Swapping this out because it seemed to max out at 50 results returned no matter what
+                |> List.filter (fun c -> not (c = p1 || c = p2))
+                |> condense
+    }
+
+    line |> Seq.toList |> updatePolymers |> Seq.map (fun s -> Seq.length s) |> Seq.min
