@@ -43,7 +43,11 @@ let main argv =
 
     let day6Lines = dataLines "day6"
 
-    day6Lines |> Day6.part1 |> printfn "Day 6 Part 1 solution %i"
+    //let day6Lines = [|"1, 1";"1, 6";"8, 3";"3, 4";"5, 5";"8, 9"|]
+
+    printfn "%A" day6Lines 
+
+    day6Lines |> Day6.part1 |> printfn "Day 6 Part 1 solution %A"
 
     Console.Read() |> ignore
 
