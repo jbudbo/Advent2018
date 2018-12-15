@@ -1,6 +1,9 @@
-﻿module Day6
+﻿
+module Day6
 
 open System.Text.RegularExpressions
+open System.Drawing
+open System
     
 let private parseLine l = 
     Regex.Match(l, "(\d{1,4}),\s(\d{1,4})") 
@@ -10,6 +13,11 @@ let private parseLine l =
 let part1 (lines:string[]) =
     //  Take our string data and make it into something we can work with (int*int)[]
     let anchorData = Array.choose parseLine lines
+
+    let anchorColors =
+        let r = new Random()
+        anchorData |> Array.map (fun a -> Color.FromArgb(r.Next(256), r.Next(256), r.Next(256)))
+
     //  Crack the anchor data so we can determine out tolerences (int[]*int[])
     let vertData = anchorData |> Array.unzip
     //  Find the minimum of each dimension given our anchors (min x * min y)
@@ -49,18 +57,31 @@ let part1 (lines:string[]) =
     //  Technically we are working with a 3 dimensional array however leaving this as a [int,int,int[]] saves us a step later on when we determine a winner for each cell
     //  Build up a constrained [,,[]] with an origin at our minima, a peak at our maxima, and cells containing ownership data correlating to each anchor
     //  [2,5,[1;2;3;4;5;6]]
-    Array2D.initBased (fst minima) (snd minima) (fst maxima) (snd maxima) findOwner
-    |> fun board ->
-        inliers |> Array.unzip |> fst
-        |> fun inlierIndicies ->
-            [| 
-                for x in [board.GetLowerBound(0)..board.GetUpperBound(0)] do
-                for y in [board.GetLowerBound(1)..board.GetUpperBound(1)] -> board.[x,y]
-            |]
-            |> Array.partition Option.isSome |> fst
-            |> Array.map Option.get
-            |> Array.filter (fun v -> Array.contains v inlierIndicies)
-        |> Array.countBy id
-        |> Array.sortByDescending snd
+    let board = Array2D.initBased (fst minima) (snd minima) (fst maxima) (snd maxima) findOwner
+
+    let colors = 
+        board 
+        |> Array2D.mapi (fun x y o -> 
+            match o with
+            | None -> Color.White 
+            | Some v -> if Array.contains (x,y) anchorData then Color.Black else anchorColors.[v])
+
+    let b = new Bitmap(Array2D.length1 board, Array2D.length2 board)
+
+    Array2D.rebase colors |> Array2D.iteri (fun x y c -> b.SetPixel(x,y,c))
+
+    b.Save("day6.tiff")
+
+    inliers |> Array.unzip |> fst
+    |> fun inlierIndicies ->
+        [| 
+            for x in [board.GetLowerBound(0)..board.GetUpperBound(0)] do
+            for y in [board.GetLowerBound(1)..board.GetUpperBound(1)] -> board.[x,y]
+        |]
+        |> Array.partition Option.isSome |> fst
+        |> Array.map Option.get
+        |> Array.filter (fun v -> Array.contains v inlierIndicies)
+    |> Array.countBy id
+    |> Array.sortByDescending snd
     |> Array.maxBy snd
     |> fun (winner,total) -> (winner, anchorData.[winner], total)

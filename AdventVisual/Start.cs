@@ -8,7 +8,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Windows.Shapes;
-
+using a
 namespace AdventVisual
 {
     class Start : Application
@@ -19,6 +19,8 @@ namespace AdventVisual
         [STAThread]
         static void Main(string[] args)
         {
+            
+
             c = new Canvas { Width = 1000, Height = 1000, RenderSize = new Size(1000, 1000) };
 
             RenderOptions.SetBitmapScalingMode(c, BitmapScalingMode.Fant);

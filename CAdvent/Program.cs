@@ -10,10 +10,12 @@ namespace CAdvent
     {
         static void Main(string[] args)
         {
-            var lines = System.IO.File.ReadAllLines("D:\\AoC\\Advent2018\\day4.txt");
+            var lines = System.IO.File.ReadAllLines("D:\\AoC\\Advent2018\\day6.txt");
 
+            
+            
             //var d1p2 = Day1Part2(lines);
-            var x = Day4Part1(lines);
+            //var x = Day4Part1(lines);
         }
 
         private static int Day4Part1(IEnumerable<string> lines)
